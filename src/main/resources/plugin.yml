@@ -1,0 +1,11 @@
+name: DS-VirtualStorage
+version: 1.0.0.1
+main: com.darksoldier1404.dvs.VirtualStorage
+api-version: 1.17
+authors: [ DEAD_POOLIO_ ]
+commands:
+  창고:
+    permission: dvs.use
+    aliases: [ dvs ]
+    usage: /창고
+    description: 창고 목록을 보여줍니다.

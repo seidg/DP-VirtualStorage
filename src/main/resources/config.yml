@@ -1,0 +1,5 @@
+Settings:
+  prefix: "&f[ &6창고 &f] "
+
+  # 기본 제공 창고 갯수 입니다.
+  DefaultSize: 1
