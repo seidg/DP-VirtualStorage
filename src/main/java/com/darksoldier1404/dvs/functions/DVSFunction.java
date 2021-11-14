@@ -36,7 +36,11 @@ public class DVSFunction {
         YamlConfiguration data = plugin.udata.get(uuid);
         ItemStack bundle = new ItemStack(Material.BUNDLE);
         BundleMeta bm = (BundleMeta) bundle.getItemMeta();
-        bm.setItems(Arrays.stream(inv.getContents()).toList());
+        Arrays.stream(inv.getContents()).toList().forEach(item -> {
+            if (item != null && item.getType() != Material.AIR) {
+                bm.addItem(item);
+            }
+        });
         bundle.setItemMeta(bm);
         data.set("Storage." + num, bundle);
         saveData(uuid);

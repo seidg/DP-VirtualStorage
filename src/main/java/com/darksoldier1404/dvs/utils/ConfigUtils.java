@@ -1,6 +1,7 @@
 package com.darksoldier1404.dvs.utils;
 
 import com.darksoldier1404.dvs.VirtualStorage;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -11,7 +12,7 @@ public class ConfigUtils {
     // reload config
     public static void reloadConfig() {
         plugin.config = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
-        plugin.prefix = plugin.config.getString("Settings.prefix");
+        plugin.prefix = ChatColor.translateAlternateColorCodes('&', plugin.config.getString("Settings.prefix"));
     }
 
     public static void loadDefaultConfig() {
@@ -20,6 +21,6 @@ public class ConfigUtils {
             plugin.saveResource("config.yml", false);
         }
         plugin.config = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
-        plugin.prefix = plugin.config.getString("Settings.prefix");
+        plugin.prefix = ChatColor.translateAlternateColorCodes('&', plugin.config.getString("Settings.prefix"));
     }
 }

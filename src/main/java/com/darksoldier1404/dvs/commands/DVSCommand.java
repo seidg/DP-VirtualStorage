@@ -1,7 +1,7 @@
 package com.darksoldier1404.dvs.commands;
 
 import com.darksoldier1404.dvs.VirtualStorage;
-import org.bukkit.Bukkit;
+import com.darksoldier1404.dvs.functions.DVSFunction;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DVSCommand implements CommandExecutor, TabCompleter {
@@ -23,11 +24,10 @@ public class DVSCommand implements CommandExecutor, TabCompleter {
         if(args.length == 0) {
             p.sendMessage(prefix + "/창고 선택 - 가상 창고 선택 GUI를 오픈합니다.");
             p.sendMessage(prefix + "/창고 구매 - 가상 창고를 추가로 구매합니다.");
-            p.sendMessage(prefix + "/창고 ");
             return false;
         }
-        if(args[0].equals("t")) {
-            p.openInventory(Bukkit.createInventory(p, (Integer.parseInt(args[1])*9), "창고"));
+        if(args[0].equalsIgnoreCase("선택")) {
+            DVSFunction.openStorageSelector(p);
             return true;
         }
         return true;
@@ -35,6 +35,9 @@ public class DVSCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+        if(args.length == 1) {
+            return Arrays.asList("선택", "구매");
+        }
         return null;
     }
 }
