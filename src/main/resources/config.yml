@@ -3,3 +3,6 @@ Settings:
 
   # 기본 제공 창고 갯수 입니다.
   DefaultSize: 1
+
+  # 창고당 구매가격 입니다.
+  Price: 10000

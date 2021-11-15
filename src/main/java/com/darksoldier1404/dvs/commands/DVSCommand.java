@@ -30,6 +30,10 @@ public class DVSCommand implements CommandExecutor, TabCompleter {
             DVSFunction.openStorageSelector(p);
             return true;
         }
+        if(args[0].equalsIgnoreCase("구매")) {
+            DVSFunction.buyStorage(p);
+            return true;
+        }
         return true;
     }
 

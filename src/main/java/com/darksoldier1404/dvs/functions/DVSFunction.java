@@ -10,12 +10,24 @@ import org.bukkit.inventory.meta.BundleMeta;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.UUID;
 
 public class DVSFunction {
     private static final VirtualStorage plugin = VirtualStorage.getInstance();
 
+    public static void buyStorage(Player p) {
+        UUID uuid = p.getUniqueId();
+        if(plugin.ess.getUser(uuid).getMoney().compareTo(BigDecimal.valueOf(plugin.config.getDouble("Storage.Price"))) < 0) {
+            p.sendMessage(plugin.prefix + "§c돈이 부족합니다. §6구매비용 : " + plugin.config.getDouble("Storage.Price") + "원");
+            return;
+        }
+        plugin.ess.getUser(uuid).takeMoney(BigDecimal.valueOf(plugin.config.getDouble("Storage.Price")));
+        plugin.udata.get(uuid).set("Player.MaxStorage", plugin.udata.get(uuid).getInt("Player.MaxStorage") + 1);
+        p.sendMessage(plugin.prefix + "§a창고 구매 완료!");
+        saveData(uuid);
+    }
 
     public static void openStorageSelector(Player p) {
         UUID uuid = p.getUniqueId();
@@ -52,7 +64,7 @@ public class DVSFunction {
         if (!file.exists()) {
             YamlConfiguration data = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data", uuid + ".yml"));
             data.set("Storage.1", new ItemStack(Material.BUNDLE));
-            data.set("Player.MaxStorage", 1);
+            data.set("Player.MaxStorage", 0);
             try {
                 data.save(new File(plugin.getDataFolder() + "/data", uuid + ".yml"));
                 plugin.udata.put(uuid, data);

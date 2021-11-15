@@ -4,6 +4,7 @@ import com.darksoldier1404.dvs.commands.DVSCommand;
 import com.darksoldier1404.dvs.events.DVSEvent;
 import com.darksoldier1404.dvs.functions.DVSFunction;
 import com.darksoldier1404.dvs.utils.ConfigUtils;
+import com.earth2me.essentials.Essentials;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
@@ -19,6 +20,7 @@ public class VirtualStorage extends JavaPlugin {
     public YamlConfiguration config;
     public Map<UUID, YamlConfiguration> udata = new HashMap<>();
     public Map<UUID, Integer> currentInventory = new HashMap<>();
+    public Essentials ess;
 
     public static VirtualStorage getInstance() {
         return plugin;
@@ -26,6 +28,7 @@ public class VirtualStorage extends JavaPlugin {
 
     public void onEnable() {
         plugin = this;
+        ess = (Essentials) Bukkit.getPluginManager().getPlugin("Essentials");
         getLogger().info("VirtualStorage has been enabled!");
         ConfigUtils.loadDefaultConfig();
         plugin.getServer().getPluginManager().registerEvents(new DVSEvent(), plugin);

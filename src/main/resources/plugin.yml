@@ -1,8 +1,10 @@
 name: DS-VirtualStorage
-version: 1.0.0.4
+version: 1.0.0.5
 main: com.darksoldier1404.dvs.VirtualStorage
 api-version: 1.17
 authors: [ DEAD_POOLIO_ ]
+depend:
+  - Essentials
 commands:
   창고:
     permission: dvs.use
