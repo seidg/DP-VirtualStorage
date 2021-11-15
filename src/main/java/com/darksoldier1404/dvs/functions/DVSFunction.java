@@ -19,11 +19,15 @@ public class DVSFunction {
 
     public static void buyStorage(Player p) {
         UUID uuid = p.getUniqueId();
-        if(plugin.ess.getUser(uuid).getMoney().compareTo(BigDecimal.valueOf(plugin.config.getDouble("Storage.Price"))) < 0) {
-            p.sendMessage(plugin.prefix + "§c돈이 부족합니다. §6구매비용 : " + plugin.config.getDouble("Storage.Price") + "원");
+        final BigDecimal price = new BigDecimal(plugin.getConfig().getString("Settings.Price"));
+        if(plugin.ess.getUser(uuid).getMoney().compareTo(price) < 0) {
+            p.sendMessage(plugin.prefix + "§c돈이 부족합니다. §6구매비용 : " + price + "원");
             return;
         }
-        plugin.ess.getUser(uuid).takeMoney(BigDecimal.valueOf(plugin.config.getDouble("Storage.Price")));
+        try{
+            plugin.ess.getUser(uuid).setMoney(plugin.ess.getUser(uuid).getMoney().subtract(price));
+        }catch(Exception ignored) {
+        }
         plugin.udata.get(uuid).set("Player.MaxStorage", plugin.udata.get(uuid).getInt("Player.MaxStorage") + 1);
         p.sendMessage(plugin.prefix + "§a창고 구매 완료!");
         saveData(uuid);
