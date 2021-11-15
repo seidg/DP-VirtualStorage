@@ -1,8 +1,8 @@
 Settings:
   prefix: "&f[ &6창고 &f] "
 
-  # 기본 제공 창고 갯수 입니다.
-  DefaultSize: 1
+  # 기본 제공 창고 갯수 입니다. - 로직 오류로 비활성화 상태입니다.
+  #DefaultSize: 1
 
   # 창고당 구매가격 입니다.
   Price: 10000

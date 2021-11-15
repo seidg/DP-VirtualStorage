@@ -28,7 +28,9 @@ public class DVSFunction {
             plugin.ess.getUser(uuid).setMoney(plugin.ess.getUser(uuid).getMoney().subtract(price));
         }catch(Exception ignored) {
         }
-        plugin.udata.get(uuid).set("Player.MaxStorage", plugin.udata.get(uuid).getInt("Player.MaxStorage") + 1);
+        YamlConfiguration data = plugin.udata.get(uuid);
+        data.set("Player.MaxStorage", data.getInt("Player.MaxStorage") + 1);
+        data.set("Storage." + (data.getInt("Player.MaxStorage")+1), new ItemStack(Material.BUNDLE));
         p.sendMessage(plugin.prefix + "§a창고 구매 완료!");
         saveData(uuid);
     }
