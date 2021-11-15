@@ -19,6 +19,11 @@ public class DVSFunction {
 
     public static void buyStorage(Player p) {
         UUID uuid = p.getUniqueId();
+        YamlConfiguration data = plugin.udata.get(uuid);
+        if(data.getInt("Player.MaxStorage") == 54) {
+            p.sendMessage("§c창고 구매를 실패했습니다. 창고 구매 개수는 최대 54개입니다.");
+            return;
+        }
         final BigDecimal price = new BigDecimal(plugin.getConfig().getString("Settings.Price"));
         if(plugin.ess.getUser(uuid).getMoney().compareTo(price) < 0) {
             p.sendMessage(plugin.prefix + "§c돈이 부족합니다. §6구매비용 : " + price + "원");
@@ -28,7 +33,6 @@ public class DVSFunction {
             plugin.ess.getUser(uuid).setMoney(plugin.ess.getUser(uuid).getMoney().subtract(price));
         }catch(Exception ignored) {
         }
-        YamlConfiguration data = plugin.udata.get(uuid);
         data.set("Player.MaxStorage", data.getInt("Player.MaxStorage") + 1);
         data.set("Storage." + (data.getInt("Player.MaxStorage")+1), new ItemStack(Material.BUNDLE));
         p.sendMessage(plugin.prefix + "§a창고 구매 완료!");
