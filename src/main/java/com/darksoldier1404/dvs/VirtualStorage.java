@@ -4,6 +4,7 @@ import com.darksoldier1404.dvs.commands.DVSCommand;
 import com.darksoldier1404.dvs.events.DVSEvent;
 import com.darksoldier1404.dvs.functions.DVSFunction;
 import com.darksoldier1404.dvs.utils.ConfigUtils;
+import com.darksoldier1404.dvs.utils.UpdateChecker;
 import com.earth2me.essentials.Essentials;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -33,6 +34,7 @@ public class VirtualStorage extends JavaPlugin {
         ConfigUtils.loadDefaultConfig();
         plugin.getServer().getPluginManager().registerEvents(new DVSEvent(), plugin);
         getCommand("창고").setExecutor(new DVSCommand());
+        UpdateChecker.check();
     }
 
     public void onDisable() {
