@@ -1,2 +1,3 @@
 rootProject.name = 'DP-VirtualStorage'
-
+include('DP-UniversalCore')
+project(':DP-UniversalCore').projectDir = new File(settingsDir, '../DP-UniversalCore')
