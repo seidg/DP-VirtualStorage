@@ -18,6 +18,10 @@ public class DVSFunction {
     private static final VirtualStorage plugin = VirtualStorage.getInstance();
 
     public static void buyStorage(Player p) {
+        if(plugin.ess == null) {
+            p.sendMessage("§c에센셜 플러그인이 설치되어있지 않아 창고 구매 기능을 사용하실 수 없습니다.");
+            return;
+        }
         UUID uuid = p.getUniqueId();
         YamlConfiguration data = plugin.udata.get(uuid);
         if(data.getInt("Player.MaxStorage") == 54) {

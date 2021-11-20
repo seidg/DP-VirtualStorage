@@ -1,5 +1,5 @@
 name: DS-VirtualStorage
-version: 1.0.0.15
+version: 1.0.0.18
 main: com.darksoldier1404.dvs.VirtualStorage
 api-version: 1.17
 authors: [ DEAD_POOLIO_ ]
