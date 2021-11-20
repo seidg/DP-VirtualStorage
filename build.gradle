@@ -16,7 +16,7 @@ jar {
 }
 
 task deleteMyFile(type: Delete) {
-    delete "C:\\Minecraft Servers\\1.17.1 Play Ground\\plugins\\DS-VirtualStorage-" + version + ".jar"
+    delete "C:\\Minecraft Servers\\1.17.1 Play Ground\\plugins\\DP-VirtualStorage-" + version + ".jar"
 }
 
 task DS_BUILD {
