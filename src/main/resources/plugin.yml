@@ -1,4 +1,4 @@
-name: DS-VirtualStorage
+name: DP-VirtualStorage
 version: 1.0.0.21
 main: com.darksoldier1404.dvs.VirtualStorage
 api-version: 1.17
