@@ -2,7 +2,6 @@ package com.darksoldier1404.dvs.events;
 
 import com.darksoldier1404.dvs.VirtualStorage;
 import com.darksoldier1404.dvs.functions.DVSFunction;
-import com.darksoldier1404.dvs.utils.UpdateChecker;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,9 +19,6 @@ public class DVSEvent implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         DVSFunction.initData(p.getUniqueId());
-        if(p.isOp()) {
-            UpdateChecker.check(p);
-        }
     }
 
     @EventHandler
