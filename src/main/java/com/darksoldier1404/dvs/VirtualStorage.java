@@ -1,10 +1,11 @@
 package com.darksoldier1404.dvs;
 
+import com.darksoldier1404.duc.UniversalCore;
+import com.darksoldier1404.duc.utils.UpdateChecker;
 import com.darksoldier1404.dvs.commands.DVSCommand;
 import com.darksoldier1404.dvs.events.DVSEvent;
 import com.darksoldier1404.dvs.functions.DVSFunction;
 import com.darksoldier1404.dvs.utils.ConfigUtils;
-import com.darksoldier1404.dvs.utils.UpdateChecker;
 import com.earth2me.essentials.Essentials;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class VirtualStorage extends JavaPlugin {
+    private UniversalCore core;
     private static VirtualStorage plugin;
     public String prefix;
     public YamlConfiguration config;
@@ -30,25 +32,18 @@ public class VirtualStorage extends JavaPlugin {
 
     public void onEnable() {
         plugin = this;
-//        Plugin pl = getServer().getPluginManager().getPlugin("UniversalCore");
-//        if(pl == null) {
-//            getLogger().warning("DP-UniversalCore 플러그인이 설치되어있지 않습니다.");
-//            plugin.setEnabled(false);
-//            return;
-//        }
-        Plugin pl = Bukkit.getPluginManager().getPlugin("Essentials");
-        if (pl == null) {
-            getLogger().warning("Essentials 플러그인이 설치되어있지 않습니다.");
-            getLogger().warning("창고 구매 기능을 비활성화 합니다.");
-            ess = null;
-        }else{
-            ess = (Essentials) Bukkit.getPluginManager().getPlugin("Essentials");
+        Plugin pl = getServer().getPluginManager().getPlugin("DP-UniversalCore");
+        if(pl == null) {
+            getLogger().warning("DP-UniversalCore 플러그인이 설치되어있지 않습니다.");
+            plugin.setEnabled(false);
+            return;
         }
+        core = (UniversalCore) pl;
         getLogger().info("VirtualStorage has been enabled!");
         ConfigUtils.loadDefaultConfig();
         plugin.getServer().getPluginManager().registerEvents(new DVSEvent(), plugin);
         getCommand("창고").setExecutor(new DVSCommand());
-        UpdateChecker.check();
+        UpdateChecker.check(plugin);
     }
 
     public void onDisable() {
