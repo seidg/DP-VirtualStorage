@@ -1,0 +1,13 @@
+name: DP-VirtualStorage
+version: 1.0.0.41
+main: com.darksoldier1404.dvs.VirtualStorage
+api-version: 1.15
+authors: [ DEAD_POOLIO_ ]
+depend:
+  - DP-UniversalCore
+commands:
+  창고:
+    permission: dvs.use
+    aliases: [ dvs ]
+    usage: /창고
+    description: 창고 목록을 보여줍니다.
