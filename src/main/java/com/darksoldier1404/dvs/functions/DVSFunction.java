@@ -26,7 +26,7 @@ public class DVSFunction {
         }
         UUID uuid = p.getUniqueId();
         YamlConfiguration data = plugin.udata.get(uuid);
-        if (plugin.config.getInt("Settings.MaxStorage") >= data.getInt("Player.MaxStorage") || data.getInt("Player.MaxStorage") == 54) {
+        if (plugin.config.getInt("Settings.MaxStorage") <= data.getInt("Player.MaxStorage") || data.getInt("Player.MaxStorage") == 54) {
             p.sendMessage(plugin.prefix + "§c창고 구매를 실패했습니다. 창고 구매 개수는 최대 " + plugin.config.getInt("Settings.MaxStorage") + "개입니다.");
             return;
         }
