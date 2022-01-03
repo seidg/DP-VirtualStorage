@@ -1,7 +1,7 @@
 name: DP-VirtualStorage
-version: 1.0.0.41
+version: 1.0.0.44
 main: com.darksoldier1404.dvs.VirtualStorage
-api-version: 1.18
+api-version: 1.12
 authors: [ DEAD_POOLIO_ ]
 depend:
   - DP-UniversalCore

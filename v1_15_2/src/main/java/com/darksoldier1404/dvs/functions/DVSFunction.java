@@ -40,7 +40,7 @@ public class DVSFunction {
         } catch (Exception ignored) {
         }
         data.set("Player.MaxStorage", data.getInt("Player.MaxStorage") + 1);
-        data.set("Storage." + (data.getInt("Player.MaxStorage") + 1), new ItemStack(Material.CHEST));
+        data.set("Storage." + data.getInt("Player.MaxStorage"), new ItemStack(Material.CHEST));
         p.sendMessage(plugin.prefix + "§a창고 구매 완료!");
         saveData(uuid);
     }
