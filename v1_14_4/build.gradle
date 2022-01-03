@@ -11,7 +11,7 @@ build {
     targetCompatibility = 1.8
 }
 group 'github.com/darksoldier1404'
-version = '1.0.0.42'
+version = '1.0.0.43'
 configurations {
     jar.archiveName = 'DP-VirtualStorage-_' + name + '-' + version + '.jar'
 }
