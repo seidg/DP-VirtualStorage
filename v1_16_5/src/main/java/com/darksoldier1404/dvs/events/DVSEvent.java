@@ -36,7 +36,6 @@ public class DVSEvent implements Listener {
                 if(e.getCurrentItem().getType() == Material.CHEST) {
                     DVSFunction.openStorage((Player) e.getWhoClicked(), e.getSlot(), e.getCurrentItem());
                     plugin.currentInventory.put(e.getWhoClicked().getUniqueId(), e.getSlot());
-                    e.getWhoClicked().getInventory().addItem(e.getCurrentItem());
                 }
             }
         }
