@@ -6,6 +6,10 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
     options.javaModuleVersion = '1.8'
 }
+build {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
 group 'github.com/darksoldier1404'
 version = '1.0.0.41'
 configurations {

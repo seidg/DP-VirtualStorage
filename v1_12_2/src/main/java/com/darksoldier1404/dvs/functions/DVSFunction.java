@@ -12,9 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class DVSFunction {
     private static final VirtualStorage plugin = VirtualStorage.getInstance();
@@ -48,14 +46,14 @@ public class DVSFunction {
     public static void openStorageSelector(Player p) {
         UUID uuid = p.getUniqueId();
         Inventory inv = plugin.getServer().createInventory(null, 54, "§1창고 선택");
-        plugin.udata.get(uuid).getConfigurationSection("Storage").getKeys(false).forEach(key -> inv.setItem(Integer.parseInt(key) - 1, plugin.udata.get(uuid).getItemStack("Storage." + key)));
+        plugin.udata.get(uuid).getConfigurationSection("Storage").getKeys(false).forEach(key -> inv.setItem(Integer.parseInt(key), plugin.udata.get(uuid).getItemStack("Storage." + key)));
         p.openInventory(inv);
     }
 
     public static void openStorage(Player p, int num, ItemStack chest) {
-        Inventory inv = plugin.getServer().createInventory(null, 54, "§1" + num + "번 창고");
+        Inventory inv = plugin.getServer().createInventory(null, 54, "§1" + (num+1) + "번 창고");
         try {
-            inv.setContents(NBT.getInventoryTag(chest, "dsv_" + num).getContents());
+            inv.setContents(NBT.getInventoryTag(chest, "dvs_" + num).getContents());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,7 +64,7 @@ public class DVSFunction {
         UUID uuid = p.getUniqueId();
         YamlConfiguration data = plugin.udata.get(uuid);
         ItemStack chest = new ItemStack(Material.CHEST);
-        chest = NBT.setInventoryTag(chest, inv, "dsv_" + num);
+        chest = NBT.setInventoryTag(chest, inv, "dvs_" + num);
         data.set("Storage." + num, chest);
         saveData(uuid);
     }
@@ -76,7 +74,7 @@ public class DVSFunction {
         final File file = new File(plugin.getDataFolder(), "data/" + uuid + ".yml");
         if (!file.exists()) {
             YamlConfiguration data = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data", uuid + ".yml"));
-            data.set("Storage.1", new ItemStack(Material.CHEST));
+            data.set("Storage.0", new ItemStack(Material.CHEST));
             data.set("Player.MaxStorage", 0);
             try {
                 data.save(new File(plugin.getDataFolder() + "/data", uuid + ".yml"));

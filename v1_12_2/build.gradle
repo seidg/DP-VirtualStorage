@@ -8,6 +8,12 @@ tasks.withType(JavaCompile) {
 }
 group 'github.com/darksoldier1404'
 version = '1.0.0.41'
+
+build {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
 configurations {
     jar.archiveName = 'DP-VirtualStorage-_' + name + '-' + version + '.jar'
 }
