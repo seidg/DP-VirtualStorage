@@ -1,5 +1,7 @@
 package com.darksoldier1404.dvs.functions;
 
+import com.darksoldier1404.duc.utils.ConfigUtils;
+import com.darksoldier1404.duc.utils.NBT;
 import com.darksoldier1404.dvs.VirtualStorage;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -39,7 +41,7 @@ public class DVSFunction {
         } catch (Exception ignored) {
         }
         data.set("Player.MaxStorage", data.getInt("Player.MaxStorage") + 1);
-        data.set("Storage." + (data.getInt("Player.MaxStorage") + 1), new ItemStack(Material.BUNDLE));
+        data.set("Storage." + (data.getInt("Player.MaxStorage") + 1), new ItemStack(Material.CHEST));
         p.sendMessage(plugin.prefix + "§a창고 구매 완료!");
         saveData(uuid);
     }
@@ -51,21 +53,22 @@ public class DVSFunction {
         p.openInventory(inv);
     }
 
-    public static void openStorage(Player p, int num, ItemStack bundle) {
+    public static void openStorage(Player p, int num, ItemStack chest) {
         Inventory inv = plugin.getServer().createInventory(null, 54, "§1" + num + "번 창고");
-        BundleMeta bm = (BundleMeta) bundle.getItemMeta();
-        bm.getItems().forEach(inv::addItem);
+        try {
+            inv.setContents(NBT.getInventoryTag(chest, "dsv_" + num).getContents());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         p.openInventory(inv);
     }
 
     public static void saveStorage(Player p, int num, Inventory inv) {
         UUID uuid = p.getUniqueId();
         YamlConfiguration data = plugin.udata.get(uuid);
-        ItemStack bundle = new ItemStack(Material.BUNDLE);
-        BundleMeta bm = (BundleMeta) bundle.getItemMeta();
-        Arrays.stream(inv.getContents()).collect(Collectors.toSet()).forEach(bm::addItem);
-        bundle.setItemMeta(bm);
-        data.set("Storage." + num, bundle);
+        ItemStack chest = new ItemStack(Material.CHEST);
+        chest = NBT.setInventoryTag(chest, inv, "dsv_" + num);
+        data.set("Storage." + num, chest);
         saveData(uuid);
     }
 
@@ -74,7 +77,7 @@ public class DVSFunction {
         final File file = new File(plugin.getDataFolder(), "data/" + uuid + ".yml");
         if (!file.exists()) {
             YamlConfiguration data = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/data", uuid + ".yml"));
-            data.set("Storage.1", new ItemStack(Material.BUNDLE));
+            data.set("Storage.1", new ItemStack(Material.CHEST));
             data.set("Player.MaxStorage", 0);
             try {
                 data.save(new File(plugin.getDataFolder() + "/data", uuid + ".yml"));
@@ -90,8 +93,9 @@ public class DVSFunction {
     }
 
     public static void saveData(UUID uuid) {
-ConfigUtils.saveCustomData(plugin, plugin.udata.get(uuid), uuid.toString(), "data/");
+        ConfigUtils.saveCustomData(plugin, plugin.udata.get(uuid), uuid.toString(), "data/");
     }
+
 
     public static void quitAndSaveData(UUID uuid) {
         saveData(uuid);

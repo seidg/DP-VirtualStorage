@@ -1,13 +1,13 @@
 package com.darksoldier1404.dvs.functions;
 
 import com.darksoldier1404.duc.utils.ConfigUtils;
+import com.darksoldier1404.duc.utils.NBT;
 import com.darksoldier1404.dvs.VirtualStorage;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BundleMeta;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,21 +52,22 @@ public class DVSFunction {
         p.openInventory(inv);
     }
 
-    public static void openStorage(Player p, int num, ItemStack bundle) {
+    public static void openStorage(Player p, int num, ItemStack chest) {
         Inventory inv = plugin.getServer().createInventory(null, 54, "§1" + num + "번 창고");
-        BundleMeta bm = (BundleMeta) bundle.getItemMeta();
-        bm.getItems().forEach(inv::addItem);
+        try {
+            inv.setContents(NBT.getInventoryTag(chest, "dsv_" + num).getContents());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         p.openInventory(inv);
     }
 
     public static void saveStorage(Player p, int num, Inventory inv) {
         UUID uuid = p.getUniqueId();
         YamlConfiguration data = plugin.udata.get(uuid);
-        ItemStack bundle = new ItemStack(Material.CHEST);
-        BundleMeta bm = (BundleMeta) bundle.getItemMeta();
-        Arrays.stream(inv.getContents()).collect(Collectors.toSet()).forEach(bm::addItem);
-        bundle.setItemMeta(bm);
-        data.set("Storage." + num, bundle);
+        ItemStack chest = new ItemStack(Material.CHEST);
+        chest = NBT.setInventoryTag(chest, inv, "dsv_" + num);
+        data.set("Storage." + num, chest);
         saveData(uuid);
     }
 
