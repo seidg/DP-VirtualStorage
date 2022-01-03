@@ -1,5 +1,6 @@
 package com.darksoldier1404.dvs.functions;
 
+import com.darksoldier1404.duc.utils.ConfigUtils;
 import com.darksoldier1404.dvs.VirtualStorage;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -90,8 +91,9 @@ public class DVSFunction {
     }
 
     public static void saveData(UUID uuid) {
-ConfigUtils.saveCustomData(plugin, plugin.udata.get(uuid), uuid.toString(), "data/");
+        ConfigUtils.saveCustomData(plugin, plugin.udata.get(uuid), uuid.toString(), "data/");
     }
+
 
     public static void quitAndSaveData(UUID uuid) {
         saveData(uuid);
